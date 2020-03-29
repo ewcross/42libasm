@@ -6,12 +6,13 @@
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/27 14:46:35 by ecross            #+#    #+#              #
-#    Updated: 2020/03/28 18:59:49 by ecross           ###   ########.fr        #
+#    Updated: 2020/03/29 16:18:54 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 	global	_main
 	default	rel
+	extern	_malloc
 
 	section	.text
 
@@ -44,6 +45,7 @@ ft_strcpy:
 	;mov	[rdi], r9
 	;ret
 
+	mov	r10, rdi		; store dst pointer
 	sub	rsi, 1
 	sub	rdi, 1
 	loopy:
@@ -53,6 +55,8 @@ ft_strcpy:
 	mov	[rdi], r9
 	cmp	byte [rsi], 0
 	jne	loopy
+
+	mov	rax, r10
 	ret
 
 ft_strcmp:
@@ -73,6 +77,9 @@ ft_strcmp:
 	jmp	loop_strcmp
 
 	outy:
+	; try using movsx to move 1 byte into entire rax
+	; e.g. movsx	rax, r12b
+	; instead of having to go via another register
 	xor	rax, rax
 	xor	r10, r10
 	xor	r11, r11
@@ -80,6 +87,39 @@ ft_strcmp:
 	mov	r11b, r13b
 	mov	rax, r10
 	sub	rax, r11
+	ret
+
+ft_write:
+	xor	rax, rax
+	mov	rax, 0x02000004         ; system call for write
+	syscall                         ; invoke operating system to do the write
+	ret
+
+ft_read:
+	xor	rax, rax
+	mov	rax, 0x02000003		; system call for read
+	syscall
+	ret
+
+ft_strdup:
+	xor	rax, rax
+	mov	r10, rdi		; store src pointer
+	call ft_strlen			; get length of string to copy
+
+	sub	rsp, 8			; align stack
+	mov	rdi, rax
+	inc	rdi			; add 1 byte to len for null byte
+	call _malloc			; malloc len + 1 bytes
+	add	rsp, 8			; clean up stack
+	
+	cmp	rax, 0			; check malloc did not fail
+	je	outout
+
+	;mov	rdi, rax		; pass malloced dst to strcpy
+	;mov	rsi, r10		; pass src pointer to strcpy
+	;call	ft_strcpy		; ft_strcpy returns pointer to dst in rax
+
+	outout:
 	ret
 
 ft_putchar:
@@ -93,26 +133,19 @@ ft_putchar:
 	ret
 
 ft_putstr:
-	; in (rdi = fd)(rsi = buff)(rdx = count)
 	xor	rax, rax
-	mov	rax, 0x02000004         ; system call for write
-	mov	rdi, rdx
-	mov	rdx, rsi 
+	call ft_strlen
 	mov	rsi, rdi
-	syscall                         ; invoke operating system to do the write
-	ret
-
-ft_write:
-	xor	rax, rax
-	mov	rax, 0x02000004         ; system call for write
-	syscall                         ; invoke operating system to do the write
+	mov	rdi, 1
+	mov	rdx, rax
+	call ft_write
 	ret
 
 ft_putnbr:
 	xor	rax, rax
 	mov	rax, rdi
-	mov	r8, 10		; set 10 for divisions
-	mov	r9, 0		; initialise counter
+	mov	r8, 10			; set 10 for divisions
+	mov	r9, 0			; initialise counter
 
 	cmp	rax, -17
 	jne store
@@ -152,26 +185,46 @@ _main:
 	;mov	rdi, dst
 	;mov	rsi, str
 	;call ft_strcpy
-	;mov	rdi, dst
+	;mov	rdi, rax
+	;mov	r10, rax
 	;call ft_strlen
-	;mov	rsi, rax
-	;mov	rdi, dst
-	;call ft_putstr
+	;mov	rdi, 1
+	;mov	rsi, r10
+	;mov	rdx, rax
+	;call ft_write
 
 	; to test ft_strcmp
-	mov	rdi, str
-	mov	rsi, str2
-	call ft_strcmp
-	mov	rdi, rax
-	call	ft_putnbr
+	;mov	rdi, str
+	;mov	rsi, str2
+	;call ft_strcmp
+	;mov	rdi, rax
+	;call	ft_putnbr
 
 	; to test ft_write
+	;mov	rdi, str
+	;call ft_strlen
+	;mov	rdx, rax
+	;mov	rdi, 1
+	;mov	rsi, str
+	;call ft_write
+
+	; to test ft_read
+	;mov	rdi, 0
+	;mov	rsi, dst
+	;mov	rdx, 9
+	;call ft_read
+	;mov	rdi, dst
+	;call ft_strlen
+	;mov	rdi, 1
+	;mov	rsi, dst
+	;mov	rdx, rax
+	;call ft_write
+
+	; to test ft_strdup
 	mov	rdi, str
-	call ft_strlen
-	mov	rdx, rax
-	mov	rdi, 1
-	mov	rsi, str
-	call ft_write
+	call ft_strdup
+	;mov	rdi, rax
+	;call ft_putstr
 
 	mov	rax, 0x02000001         ; system call for exit
 	xor	rdi, rdi                ; exit code 0
@@ -185,4 +238,4 @@ str2:	db	"xob", 0
 	section	.bss
 
 output_buff	resb	4
-dst		resb	10
+dst		resb	20
