@@ -17,6 +17,6 @@ Also included is a main (written in blah) which can be used to test the function
 
 ## Resources
 
-[Nasm tutorial](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
-[x86_64 NASM Assembly Quick Reference](https://www.cs.uaf.edu/2017/fall/cs301/reference/x86_64.html)
-[MacOS system calls](https://opensource.apple.com/source/xnu/xnu-1504.3.12/bsd/kern/syscalls.master)
+* [Nasm tutorial](https://cs.lmu.edu/~ray/notes/nasmtutorial/)
+* [x86_64 NASM Assembly Quick Reference](https://www.cs.uaf.edu/2017/fall/cs301/reference/x86_64.html)
+* [MacOS system calls](https://opensource.apple.com/source/xnu/xnu-1504.3.12/bsd/kern/syscalls.master)
