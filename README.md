@@ -1,6 +1,6 @@
 # libasm
 
-A basic assembly language project.
+A basic assembly language project, to learn and practise the basics of assembly.
 
 Re-write the following functions (from a previous c project) in x64 assembly, using the Intel syntax:
 
@@ -12,3 +12,8 @@ ssize_t   ft_write(int fd, const void *buf, size_t nbyte);
 ssize_t   ft_read(int fd, void *buf, size_t nbyte);
 char      *ft_strdup(const char *str);
 ```
+## Hello
+
+### jello
+
+###### poo
