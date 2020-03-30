@@ -6,12 +6,17 @@
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/27 14:46:35 by ecross            #+#    #+#              #
-#    Updated: 2020/03/29 16:18:54 by ecross           ###   ########.fr        #
+#    Updated: 2020/03/30 11:53:51 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-	global	_main
-	default	rel
+; to do
+; stop using r11-r13 for storing things - they are preserved
+; better to just push and pop stored values
+; find out problem with malloc
+
+	global	_main			; when no main (only function), need to
+	default	rel			; change _main to _'function name'
 	extern	_malloc
 
 	section	.text
@@ -109,7 +114,7 @@ ft_strdup:
 	sub	rsp, 8			; align stack
 	mov	rdi, rax
 	inc	rdi			; add 1 byte to len for null byte
-	call _malloc			; malloc len + 1 bytes
+	call _mall			; malloc len + 1 bytes
 	add	rsp, 8			; clean up stack
 	
 	cmp	rax, 0			; check malloc did not fail
