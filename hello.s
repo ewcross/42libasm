@@ -6,63 +6,24 @@
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/27 14:46:35 by ecross            #+#    #+#              #
-#    Updated: 2020/03/30 11:53:51 by ecross           ###   ########.fr        #
+#    Updated: 2020/03/30 15:33:02 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ; to do
-; stop using r11-r13 for storing things - they are preserved
+; stop using registers for storing things - this may disrupt a called function
 ; better to just push and pop stored values
 ; find out problem with malloc
 
-	global	_main			; when no main (only function), need to
-	default	rel			; change _main to _'function name'
-	extern	_malloc
-
 	section	.text
-
-ft_strlen:
-	xor	rax, rax
-	mov	r8, -1
-
-	loop_strlen:
-	inc	r8
-	cmp	byte [rdi + r8], 0
-	jne	loop_strlen
-
-	mov	rax, r8
-	ret
-
-ft_strcpy:
-	xor	rax, rax
-
-	;loop_strcpy:
-	;cmp	byte [rsi], 0
-	;je	out
-	;mov	r9, [rsi]
-	;mov	[rdi], r9
-	;inc	rdi
-	;inc	rsi
-	;jmp	loop_strcpy
-
-	;out:
-	;mov	r9, [rsi]
-	;mov	[rdi], r9
-	;ret
-
-	mov	r10, rdi		; store dst pointer
-	sub	rsi, 1
-	sub	rdi, 1
-	loopy:
-	inc	rsi
-	inc	rdi
-	mov	r9, [rsi]
-	mov	[rdi], r9
-	cmp	byte [rsi], 0
-	jne	loopy
-
-	mov	rax, r10
-	ret
+	
+	default	rel
+	
+	global	_main
+	
+	extern	_malloc
+	extern	_ft_strlen
+	extern	_ft_strcpy
 
 ft_strcmp:
 	mov	r10, rdi
@@ -108,21 +69,21 @@ ft_read:
 
 ft_strdup:
 	xor	rax, rax
-	mov	r10, rdi		; store src pointer
-	call ft_strlen			; get length of string to copy
+	push	rdi			; push src pointer
+	call _ft_strlen			; get length of string to copy
 
 	sub	rsp, 8			; align stack
-	mov	rdi, rax
+	mov	rdi, rax		; using retrun value of strlen
 	inc	rdi			; add 1 byte to len for null byte
-	call _mall			; malloc len + 1 bytes
+	call _malloc			; malloc len + 1 bytes
 	add	rsp, 8			; clean up stack
 	
 	cmp	rax, 0			; check malloc did not fail
 	je	outout
 
-	;mov	rdi, rax		; pass malloced dst to strcpy
-	;mov	rsi, r10		; pass src pointer to strcpy
-	;call	ft_strcpy		; ft_strcpy returns pointer to dst in rax
+	mov	rdi, rax		; pass malloced dst to strcpy
+	pop	rsi			; get src pointer from stack
+	call	ft_strcpy		; ft_strcpy returns pointer to dst in rax
 
 	outout:
 	ret
@@ -139,7 +100,7 @@ ft_putchar:
 
 ft_putstr:
 	xor	rax, rax
-	call ft_strlen
+	call _ft_strlen
 	mov	rsi, rdi
 	mov	rdi, 1
 	mov	rdx, rax
@@ -180,9 +141,9 @@ ft_putnbr:
 	ret
 
 _main:
-	; to test ft_strlen
+	; to test _ft_strlen
 	;mov	rdi, str
-	;call ft_strlen
+	;call _ft_strlen
 	;mov	rdi, rax
 	;call ft_putnbr
 
@@ -192,7 +153,7 @@ _main:
 	;call ft_strcpy
 	;mov	rdi, rax
 	;mov	r10, rax
-	;call ft_strlen
+	;call _ft_strlen
 	;mov	rdi, 1
 	;mov	rsi, r10
 	;mov	rdx, rax
@@ -207,7 +168,7 @@ _main:
 
 	; to test ft_write
 	;mov	rdi, str
-	;call ft_strlen
+	;call _ft_strlen
 	;mov	rdx, rax
 	;mov	rdi, 1
 	;mov	rsi, str
@@ -219,7 +180,7 @@ _main:
 	;mov	rdx, 9
 	;call ft_read
 	;mov	rdi, dst
-	;call ft_strlen
+	;call _ft_strlen
 	;mov	rdi, 1
 	;mov	rsi, dst
 	;mov	rdx, rax
@@ -228,8 +189,8 @@ _main:
 	; to test ft_strdup
 	mov	rdi, str
 	call ft_strdup
-	;mov	rdi, rax
-	;call ft_putstr
+	mov	rdi, rax
+	call ft_putstr
 
 	mov	rax, 0x02000001         ; system call for exit
 	xor	rdi, rdi                ; exit code 0
@@ -237,7 +198,7 @@ _main:
 
 	section	.data
 
-str:	db	"goblin", 0
+str:	db	"goblins", 10, 0
 str2:	db	"xob", 0
 
 	section	.bss
