@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    ft_strcpy.s                                        :+:      :+:    :+:    #
+#    ft_read.s                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/03/30 15:10:57 by ecross            #+#    #+#              #
-#    Updated: 2020/03/31 13:19:52 by ecross           ###   ########.fr        #
+#    Created: 2020/03/31 10:45:08 by ecross            #+#    #+#              #
+#    Updated: 2020/03/31 10:46:17 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,25 +14,10 @@
 	
 	default	rel
 	
-	global	_ft_strcpy
+	global	_ft_read
 
-_ft_strcpy:
+_ft_read:
 	xor	rax, rax
-
-	cmp	rsi, 0			; do nothing if null pointer
-	je	out			; this is safer than strcpy
-
-	push	rdi
-	sub	rsi, 1
-	sub	rdi, 1
-	loopy:
-	inc	rsi
-	inc	rdi
-	mov	r8, [rsi]
-	mov	[rdi], r8
-	cmp	byte [rsi], 0
-	jne	loopy
-
-	pop	rax
-	out:
+	mov	rax, 0x02000003		; system call for read
+	syscall
 	ret

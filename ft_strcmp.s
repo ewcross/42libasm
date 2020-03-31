@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    ft_strcpy.s                                        :+:      :+:    :+:    #
+#    ft_strcmp.s                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/03/30 15:10:57 by ecross            #+#    #+#              #
-#    Updated: 2020/03/31 13:19:52 by ecross           ###   ########.fr        #
+#    Created: 2020/03/31 10:43:22 by ecross            #+#    #+#              #
+#    Updated: 2020/03/31 13:18:21 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,25 +14,23 @@
 	
 	default	rel
 	
-	global	_ft_strcpy
-
-_ft_strcpy:
-	xor	rax, rax
-
-	cmp	rsi, 0			; do nothing if null pointer
-	je	out			; this is safer than strcpy
-
-	push	rdi
-	sub	rsi, 1
-	sub	rdi, 1
-	loopy:
+	global	_ft_strcmp
+	
+_ft_strcmp:
+	mov	r8b, [rdi]
+	
+	loop:
+	cmp	r8b, [rsi]
+	jne	outy
+	cmp	r8b, 0
+	je	outy
 	inc	rsi
 	inc	rdi
-	mov	r8, [rsi]
-	mov	[rdi], r8
-	cmp	byte [rsi], 0
-	jne	loopy
+	mov	r8b, [rdi]
+	jmp	loop
 
-	pop	rax
-	out:
+	outy:
+	xor	rax, rax
+	sub	r8b, [rsi]
+	movsx	rax, r8b
 	ret
