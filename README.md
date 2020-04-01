@@ -2,7 +2,7 @@
 
 A basic assembly language project, to learn and practise the basics of assembly.
 
-Re-write the following functions (from a previous c project) in x64 assembly, using the Intel syntax, and the NASM assembler:
+Re-write the following functions (basic c lib functions recoded in a previous 42 project) in x64 assembly, using the Intel syntax, and the NASM assembler:
 
 ```C
 size_t    ft_strlen(const char *str);
@@ -13,7 +13,7 @@ ssize_t   ft_read(int fd, void *buf, size_t nbyte);
 char      *ft_strdup(const char *str);
 ```
 
-Also included is a main (written in blah) which can be used to test the functions.
+Makefile also contains a 'test' rule which compiles and links ```tester_main.c``` which can be used to test the functions above.
 
 ## Resources
 
