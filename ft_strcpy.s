@@ -6,7 +6,7 @@
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/30 15:10:57 by ecross            #+#    #+#              #
-#    Updated: 2020/03/31 13:19:52 by ecross           ###   ########.fr        #
+#    Updated: 2020/04/01 12:28:32 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,10 @@
 _ft_strcpy:
 	xor	rax, rax
 
-	cmp	rsi, 0			; do nothing if null pointer
-	je	out			; this is safer than strcpy
+	cmp	rsi, 0			; if src pointer is NULL
+	je	out			; return NULL (ret = 0)
 
-	push	rdi
+	push	rdi			; push dst pointer to stack
 	sub	rsi, 1
 	sub	rdi, 1
 	loopy:
@@ -33,6 +33,6 @@ _ft_strcpy:
 	cmp	byte [rsi], 0
 	jne	loopy
 
-	pop	rax
+	pop	rax			; get dst pointer from stack
 	out:
 	ret

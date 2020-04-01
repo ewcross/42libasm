@@ -6,7 +6,7 @@
 /*   By: ecross <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 11:18:57 by ecross            #+#    #+#             */
-/*   Updated: 2020/03/31 13:33:33 by ecross           ###   ########.fr       */
+/*   Updated: 2020/04/01 12:22:45 by ecross           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 {
 	char	*str;
 	char	*str2;
-	char	*s1 = "poopoo";
+	char	*s1 = "goblins";
 	char	*s2 = "";
 	char	*s3 = 0;
 	char	*s4 = "";
@@ -68,7 +68,7 @@ int	main(void)
 	printf("mine: %zd -> %s\n", ft_read(fd, dst, 10), dst);
 	printf("real: %zd -> %s\n", read(fd, dst, 10), dst);
 	printf("***FT_STRDUP***\n");
-	str = s1;
+	str = s3;
 	printf("duplicating string \"%s\"\n", str);
 	printf("mine: %s\n", ft_strdup(str));
 	printf("real: %s\n", strdup(str));
