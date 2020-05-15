@@ -6,7 +6,7 @@
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/31 10:59:20 by ecross            #+#    #+#              #
-#    Updated: 2020/03/31 11:56:38 by ecross           ###   ########.fr        #
+#    Updated: 2020/05/15 17:55:07 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS = 	ft_strlen.s \
 	ft_read.s \
 	ft_strdup.s
 
-TESTER = test_main.c
+TESTER = main.c
 
 RM = rm -f
 
