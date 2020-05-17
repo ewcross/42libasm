@@ -6,7 +6,7 @@
 /*   By: ecross <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 11:18:57 by ecross            #+#    #+#             */
-/*   Updated: 2020/05/16 12:19:12 by ecross           ###   ########.fr       */
+/*   Updated: 2020/05/17 14:50:28 by ecross           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ int	main(void)
 	char	*str;
 	char	*str2;
 	char	*new;
-	char	dst[10000];
+	char	dst[100];
 	char	*normal = "goblins";
 
-	str = "123456789";
+	str = "123456789abc";
 	printf("writing string to bad file descriptor \"%s\"\n", str);
-	fd = -1;
+	fd = 1;
 	printf("mine: \n");
 	errno = 0;
 	retlu = ft_write(fd, str, ft_strlen(str));
@@ -49,6 +49,21 @@ int	main(void)
 	printf("real: \n");
 	errno = 0;
 	retlu = write(fd, str, ft_strlen(str));
+	err = errno;
+	printf(" (ret = %zd)\n", retlu);
+	printf("errno --> %d\n", err);
+	printf("-----------------------------------------\n");
+	fd = 0;
+	n = 10;
+	printf("mine: \n");
+	errno = 0;
+	retlu = ft_read(fd, dst, n);
+	err = errno;
+	printf(" (ret = %zd)\n", retlu);
+	printf("errno --> %d\n", err);
+	printf("real: \n");
+	errno = 0;
+	retlu = ft_read(fd, dst, n);
 	err = errno;
 	printf(" (ret = %zd)\n", retlu);
 	printf("errno --> %d\n", err);
