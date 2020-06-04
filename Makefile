@@ -6,7 +6,7 @@
 #    By: ecross <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/03/31 10:59:20 by ecross            #+#    #+#              #
-#    Updated: 2020/05/15 17:55:07 by ecross           ###   ########.fr        #
+#    Updated: 2020/06/04 10:37:24 by ecross           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ clean:
 	${RM} ${OBJS} ${TESTER:.c=.o}
 
 fclean:		clean
-	${RM} ${NAME}
+	${RM} ${NAME} a.out
 
 re:			fclean all
 
