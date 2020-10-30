@@ -6,7 +6,7 @@
 /*   By: ecross <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/31 11:18:57 by ecross            #+#    #+#             */
-/*   Updated: 2020/05/16 11:29:15 by ecross           ###   ########.fr       */
+/*   Updated: 2020/10/30 10:39:08 by ecross           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,18 @@ extern	char	*ft_strdup(char const *s1);
 
 int	main(void)
 {
-	int		fd;
-	int		n;
-	int		err;
-	int		ret;
+	int				fd;
+	int				err;
+	int				ret;
+	int				chars_num = 100;
 	long unsigned	retlu;
-	char	*str;
-	char	*str2;
-	char	*new;
-	char	dst[10000];
-	char	*normal = "goblins";
-	char	*empty = "";
-	char	*long_str = "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg";
+	char			*str;
+	char			*str2;
+	char			*new;
+	char			dst[10000];
+	char			*normal = "goblins";
+	char			*empty = "";
+	char			*long_str = "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg";
 	char	*null_str = 0;
 
 	
@@ -177,7 +177,7 @@ int	main(void)
 	
 	printf("***FT_WRITE***\n");
 	str = normal;
-	printf("writing string to stdout \"%s\"\n", str);
+	printf("writing \"%s\" to stdout\n", str);
 	fd = 1;
 	printf("mine: \n");
 	errno = 0;
@@ -193,7 +193,7 @@ int	main(void)
 	printf("errno --> %d\n", err);
 	printf("-------\n");
 	
-	printf("writing string to output.txt \"%s\"\n", str);
+	printf("writing \"%s\" to output.txt\n", str);
 	fd = open("output.txt", O_WRONLY | O_APPEND);
 	printf("mine: \n");
 	errno = 0;
@@ -210,7 +210,7 @@ int	main(void)
 	close(fd);
 	printf("-------\n");
 	
-	printf("writing string to bad file descriptor \"%s\"\n", str);
+	printf("writing \"%s\" to bad file descriptor\n", str);
 	fd = -1;
 	printf("mine: \n");
 	errno = 0;
@@ -227,57 +227,57 @@ int	main(void)
 	printf("-----------------------------------------\n");
 	
 	printf("***FT_READ***\n");
-	n = 10;
 
 	printf("reading from stdin\n");
 	fd = 0;
-	memset(dst, 0, n + 1);
+	memset(dst, 0, chars_num + 1);
 	errno = 0;
-	retlu = ft_read(fd, dst, n);
+	retlu = ft_read(fd, dst, chars_num);
 	err = errno;
 	printf("mine: (ret = %zd) %s\n", retlu, dst);
 	printf("errno --> %d\n", err);
-	memset(dst, 0, n + 1);
+
+	memset(dst, 0, chars_num + 1);
 	errno = 0;
-	retlu = read(fd, dst, n);
+	retlu = read(fd, dst, chars_num);
 	err = errno;
-	printf("mine: (ret = %zd) %s\n", retlu, dst);
+	printf("real: (ret = %zd) %s\n", retlu, dst);
 	printf("errno --> %d\n", err);
 	printf("-------\n");
 
-	printf("reading %d chars from output.txt\n", n);
+	printf("reading %d chars from output.txt\n", chars_num);
 	fd = open("output.txt", O_RDONLY);
-	memset(dst, 0, n + 1);
+	memset(dst, 0, chars_num + 1);
 	errno = 0;
-	retlu = ft_read(fd, dst, n);
+	retlu = ft_read(fd, dst, chars_num);
 	err = errno;
 	printf("mine: (ret = %zd) %s\n", retlu, dst);
 	printf("errno --> %d\n", err);
 	close(fd);
 	
 	fd = open("output.txt", O_RDONLY);
-	memset(dst, 0, n + 1);
+	memset(dst, 0, chars_num + 1);
 	errno = 0;
-	retlu = read(fd, dst, n);
+	retlu = read(fd, dst, chars_num);
 	err = errno;
-	printf("mine: (ret = %zd) %s\n", retlu, dst);
+	printf("real: (ret = %zd) %s\n", retlu, dst);
 	printf("errno --> %d\n", err);
 	close(fd);
 	printf("-------\n");
 	
-	printf("reading %d chars from bad file descriptor\n", n);
+	printf("reading %d chars from bad file descriptor\n", chars_num);
 	fd = -1;
-	memset(dst, 0, n + 1);
+	memset(dst, 0, chars_num + 1);
 	errno = 0;
-	retlu = ft_read(fd, dst, n);
+	retlu = ft_read(fd, dst, chars_num);
 	err = errno;
 	printf("mine: (ret = %zd) %s\n", retlu, dst);
 	printf("errno --> %d\n", err);
-	memset(dst, 0, n + 1);
+	memset(dst, 0, chars_num + 1);
 	errno = 0;
-	retlu = read(fd, dst, n);
+	retlu = read(fd, dst, chars_num);
 	err = errno;
-	printf("mine: (ret = %zd) %s\n", retlu, dst);
+	printf("real: (ret = %zd) %s\n", retlu, dst);
 	printf("errno --> %d\n", err);
 	printf("-----------------------------------------\n");
 	
